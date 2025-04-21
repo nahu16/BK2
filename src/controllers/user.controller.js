@@ -20,11 +20,12 @@ class UserController{
             const id = req.session.passport.user;
             const user = await userService.getById(id);
             req.session.user = user;
+            const token = this.service.generateToken(user);  
+            res.cookie("token", token, { httpOnly: true });
             res.redirect("/perfil")
         } catch (error) {
             return res.redirect("/errorLogin");
         }
-
     };
     
     getAll = async (req, res, next) => {

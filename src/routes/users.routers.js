@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { userController } from "../controllers/user.controller.js";
-import passport, { Passport } from "passport";
+import passport from "passport";
+import { checkRole } from "../middlewares/check.role.js";
+
 const router = Router();
 
 router.post("/register", 
@@ -9,7 +11,13 @@ router.post("/register",
 
 
 router.post("/login", 
-    passport.authenticate("login",{ failureRedirect:"/errorLogin" }),
+    passport.authenticate("login",{ failureRedirect:"/errorLogin"}),
     userController.login);
 
+router.get(
+    "/private-cookies-admin",
+    passport.authenticate("jwt-cookies"),
+    checkRole("admin"),
+    (req, res) => res.send(req.user)
+  );
 export default router;

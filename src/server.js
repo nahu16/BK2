@@ -9,6 +9,7 @@ import viewsRouter from "./routes/view.router.js";
 import { initMongoDB } from "./daos/mongodb/connection.js";
 import { errorHandler } from "./middlewares/error.handler.js";
 import passport from "passport";
+import './config/passport/jwt.strategy.js';
 import "./config/passport/local-strategy.js";
 
 const app = express();

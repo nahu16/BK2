@@ -1,6 +1,7 @@
 import { userDao } from "../daos/mongodb/user-dao.js";
 import CustomError from "../utils/custom.error.js";
 import { createHash, isValidPassword } from "../utils/user.utils.js";
+import jwt from "jsonwebtoken";
 
 class UserService { 
     constructor(dao){
@@ -71,6 +72,20 @@ class UserService {
         } catch (error) {
             throw error;
         }
+    };
+
+    generateToken = (user) => {
+        const payload = {
+          _id: user._id,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          age: user.age,
+          role: user.role
+        };
+        return jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "20m",
+        });
     };
 }
 
