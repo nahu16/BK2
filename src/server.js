@@ -8,6 +8,8 @@ import handlebars from "express-handlebars";
 import viewsRouter from "./routes/view.router.js";
 import { initMongoDB } from "./daos/mongodb/connection.js";
 import { errorHandler } from "./middlewares/error.handler.js";
+import passport from "passport";
+import "./config/passport/local-strategy.js";
 
 const app = express();
 const PORT = 8080
@@ -34,6 +36,9 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 initMongoDB()
     .then(()=>console.log('Conectado a mongoDB'))

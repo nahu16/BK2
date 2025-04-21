@@ -19,9 +19,8 @@ router.get("/errorLogin", (req, res)=>{
 });
 
 router.get("/perfil",  (req, res)=>{
-    const user = req.session;
+    const user = req.session.user;
     res.render("perfil", { user });
-    console.log(req.session.email);
 });
 
 export default router;

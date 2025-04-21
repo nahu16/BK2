@@ -7,27 +7,21 @@ class UserController{
 
     create = async (req, res, next) => {
         try {
-            const response = await this.service.create(req.body);
-            if (!response) return res.redirect("/errorRegistro");
-            return res.redirect("/");
+            const user = req.user;
+            req.session.user = user;
+            res.redirect("/perfil")
         } catch (error) {
-            //next(error);
             return res.redirect("/errorRegistro");
         }
     };
 
-    login = async (req, res) =>{
+    login = async (req, res, next) =>{
         try {
-            const { email, password } = req.body;
-            const user = await this.service.login(email,password);
-            if (user) {
-                req.session.email = email;
-                req.session.password = password;
-                return res.redirect("/perfil");
-            }
-            return res.redirect("/errorlogin");
+            const id = req.session.passport.user;
+            const user = await userService.getById(id);
+            req.session.user = user;
+            res.redirect("/perfil")
         } catch (error) {
-            //console.error("Login error:", error.message);
             return res.redirect("/errorLogin");
         }
 
