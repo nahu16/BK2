@@ -30,6 +30,10 @@ const userSchema = new Schema({
         type: String,
         default: "user",
     },
+    isGithub: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 export const UserModel = model("users", userSchema); 

@@ -54,6 +54,14 @@ class UserService {
     }
     };
 
+    getByEmail = async (email) => {
+        try {
+          return await this.dao.getByEmail(email);
+        } catch (error) {
+          throw error;
+        }
+    };
+
     update = async (id,  body) => {
     try {
         const response = await this.dao.update(id, body);
@@ -81,7 +89,7 @@ class UserService {
           last_name: user.last_name,
           email: user.email,
           age: user.age,
-          role: user.role
+          role: user.role,
         };
         return jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "20m",

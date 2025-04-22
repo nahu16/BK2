@@ -11,6 +11,7 @@ import { errorHandler } from "./middlewares/error.handler.js";
 import passport from "passport";
 import './config/passport/jwt.strategy.js';
 import "./config/passport/local-strategy.js";
+import "./config/passport/github.strategy.js";
 
 const app = express();
 const PORT = 8080
