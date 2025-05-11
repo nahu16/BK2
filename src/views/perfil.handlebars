@@ -1,3 +1,28 @@
 <h2>Perfil</h2>
-<h3>¡Bienvenido/a {{user.email}}!</h3>
+<h3>¡Bienvenido/a {{user.first_name}} {{user.last_name}}!</h3>
+
+
 <p>Carritos: {{user.cart}}</p>
+
+<div>  
+    <form action="/users/editarUsuario" method="POST" id="editUserForm">
+    <label for="first_name">Nombre:</label>
+    <input type="text" name="first_name" value="{{user.first_name}}" />
+    <button type="submit">Guardar</button>
+    </form>
+    <form action="/users/editarUsuario" method="POST" id="editUserForm">
+    <label for="last_name">Apellido:</label>
+    <input type="text" name="last_name" value="{{user.last_name}}" />
+    <button type="submit">Guardar</button>
+    </form>
+    <form action="/users/editarUsuario" method="POST" id="editUserForm">
+    <label for="age">Edad:</label>
+    <input type="text" name="age" value="{{user.age}}" />
+    <button type="submit">Guardar</button>
+    </form>
+    <form action="/users/editarUsuario" method="POST" id="editUserForm">
+    <label for="email">Email:</label>
+    <input type="text" name="email" value="{{user.email}}" />
+    <button type="submit">Guardar</button>
+    </form>
+</div>

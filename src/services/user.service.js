@@ -1,7 +1,9 @@
-import { userDao } from "../daos/mongodb/user-dao.js";
 import CustomError from "../utils/custom.error.js";
+import persistence from "../daos/persistence.js";
 import { createHash, isValidPassword } from "../utils/user.utils.js";
 import jwt from "jsonwebtoken";
+
+const { userDao } = persistence;
 
 class UserService { 
     constructor(dao){
@@ -29,7 +31,7 @@ class UserService {
             const userExist = await this.dao.getByEmail(email);
             if (!userExist) throw new CustomError ("Credenciales incorrectas", 400);
             const passValid = isValidPassword(password, userExist.password);
-            if(!passValid) throw new CustomError("Credenciales incorrectas", 400);
+            if(!passValid) throw new CustomError(" Credenciales incorrectas", 400);
             return userExist;
         } catch (error) {
             throw error;

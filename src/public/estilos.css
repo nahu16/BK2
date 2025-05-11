@@ -1,0 +1,185 @@
+body {
+    background-color: #052659;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.registro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.titulo{
+    font-size: 2em; 
+    font-weight: bold;
+    color: white;
+}
+
+.card {
+    position: relative;
+    width: 1100px;
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background-color: #5483B3;
+}
+
+.background-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-color: #4169A3; 
+}
+
+.overlay {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    padding: 2rem;
+    background-color: rgba(5, 38, 89, 0.85); /* azul oscuro con opacidad */
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.botIni {
+    margin-top: 10px;
+    border: none;
+    background-color: #4169A3;
+    color: white;
+    font-size: 16px;
+    height: 35px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.botIni:hover {
+    background-color: #335488;
+}
+
+.hr-line {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 1rem 0;
+}
+
+.github-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.github-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.register-box {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 10px;
+}
+
+.botLog {
+    border: none;
+    color: white;
+    text-decoration: underline;
+    font-size: 14px;
+    height: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.botLog:hover {
+    color: #cfd8ff;
+}
+
+p {
+    color: white;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff3f7;
+    border-bottom: 1px solid #ffd6e0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.actions button {
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color: #ff8fb1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    background-color: #ff5d8f;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+}
+
+section {
+    margin-top: 2rem;
+}

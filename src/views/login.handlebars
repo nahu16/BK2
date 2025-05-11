@@ -1,11 +1,28 @@
-<h1> Bienvenido! </h1>
-<form action='/users/login' method='post'>
-    Email: <input type='email' name='email' id='email'/>
-    Password: <input type='password' name='password' id='password'/>
-    <input type='submit' value='Ingresar'>
-</form>
+<div class="container">
+  <div class="card">
+    <img src="/image/logo.jpg" alt="Logo de fondo" class="background-img" />
+    <div class="overlay">
+      <form action='/users/login' method='post' class="form">
+        <label for="email">Email:</label>
+        <input type='email' name='email' id='email' class="input" />
 
-<h2>Quieres registrarte?</h2>
-<button onclick="location.href='/registro'">Registrarse</button>
-<h3>O ingresa con:</h3>
-<button onclick="location.href='/users/register-github'">Ingresar con GitHub</button>
+        <label for="password">Password:</label>
+        <input type='password' name='password' id='password' class="input" />
+
+        <input type='submit' value='Ingresar' class="botIni" />
+      </form>
+
+      <div class="hr-line"></div>
+
+      <button onclick="location.href='/users/register-github'" class="botIni github-btn">
+        <img src="/image/github.jpg" alt="GitHub" class="github-icon" />
+        Iniciar sesión con GitHub
+      </button>
+
+      <div class="register-box">
+        <p>¿No tienes cuenta?</p>
+        <button onclick="location.href='/registro'" class="botLog">Regístrate</button>
+      </div>
+    </div>
+  </div>
+</div>

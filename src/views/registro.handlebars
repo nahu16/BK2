@@ -1,10 +1,15 @@
-<h1>REGISTRO</h1>
-
-<form action="/users/register" method="post">
-    <label for="first_name">FirstName:</label> <input type="text" name="first_name" id="first_name" />
-    <label for="last_name">LastName:</label> <input type="text" name="last_name" id="last_name" />
-    <label for="email">Email:</label> <input type="email" name="email" id="email" />
-    <label for="age">Age:</label> <input type="number" name="age" id="age" />
-    <label for="password">Password:</label> <input type="password" name="password" id="password" />
-    <input type="submit" value="CREAR" />
-</form>
+<div class="registro">
+    <div class="card">
+        <img src="/image/logo.jpg" alt="Logo de fondo" class="background-img"/>
+        <div class="overlay">
+            <form action="/users/register" method="post" class="form">
+                <label for="first_name">FirstName:</label> <input type="text" name="first_name" id="first_name" />
+                <label for="last_name">LastName:</label> <input type="text" name="last_name" id="last_name" />
+                <label for="email">Email:</label> <input type="email" name="email" id="email" />
+                <label for="age">Age:</label> <input type="number" name="age" id="age" />
+                <label for="password">Password:</label> <input type="password" name="password" id="password" />
+                <input type="submit" value="CREAR" class="botIni"/>
+            </form>
+        </div>
+    </div>
+</div>

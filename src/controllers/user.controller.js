@@ -9,7 +9,7 @@ class UserController{
         try {
             const user = req.user;
             req.session.user = user;
-            res.redirect("/perfil")
+            res.redirect('/home')
         } catch (error) {
             return res.redirect("/errorRegistro");
         }
@@ -22,12 +22,23 @@ class UserController{
             req.session.user = user;
             const token = this.service.generateToken(user);  
             res.cookie("token", token, { httpOnly: true });
-            res.redirect("/perfil")
+            res.redirect('/home')
         } catch (error) {
             return res.redirect("/errorLogin");
         }
     };
     
+    githubResponse = async (req, res, next) => {
+        try {
+            const user = req.user;
+            res.redirect('/home')
+        } catch (error) {
+            return res.redirect("/errorLogin");
+        }
+        };
+
+
+
     getAll = async (req, res, next) => {
         try {
             const response = await this.service.getAll();
@@ -47,11 +58,12 @@ class UserController{
         }
     };
     
-    update = async (req, res, next) => {
+    update = async (req, res, next) => {       
         try {
-            const { id } = req.params;
-            const response = await this.service.update(id, req.body);
-            res.status(200).json(response);
+            const userId = req.session.user._id;
+            const response = await this.service.update(userId, req.body);
+            req.session.user=response; 
+            res.redirect('/perfil')
         } catch (error) {
             next(error);
         }

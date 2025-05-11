@@ -1,0 +1,34 @@
+<body>
+<header>
+    <div class="logo-container">
+        <img src="/image/logo.jpg" alt="Caprichos Reposteros Logo">
+        <h1>Caprichos Reposteros</h1>
+    </div>
+    <div class="actions">
+        <button onclick="location.href='/perfil'" class="botIni github-btn">
+            <img src="/image/picperfil.png" alt="picPerfil" class="github-icon"/>
+        </button>
+        <button onclick="location.href='/carrito'" class="botIni">
+            <img src="/image/cart.png" alt="picPerfil" class="github-icon"/>
+        </button>
+    </div>
+</header>
+<main>
+    <section>
+        <h3>Productos</h3>
+        <div>
+            <button onclick="ordenar('asc')" class="botIni">Ordenar Ascendente</button>
+            <button onclick="ordenar('desc')" class="botIni">Ordenar Descendente</button>
+            <ul id="lista-productos">
+                {{#each productos}}
+                    <li>
+                        <h4>{{nombre}}</h4>
+                        <p>Precio: ${{precio}}</p>
+                        <button onclick="agregarAlCarrito('{{id}}')">Agregar al carrito</button>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </section>
+</main>
+</body>

@@ -4,6 +4,7 @@ import passport from "passport";
 import { checkRole } from "../middlewares/check.role.js";
 import { passportCall } from "../middlewares/passport-call.js";
 
+
 const router = Router();
 
 router.post("/register", 
@@ -15,17 +16,22 @@ router.get("/register-github",
 );
 
 router.post("/login", 
-    passport.authenticate("login",{ failureRedirect:"/errorLogin"}),
+    passport.authenticate("login", { failureRedirect:"/errorLogin"}),
     userController.login);
 
 router.get("/login", 
     passportCall("github",{ scope: ["user:email"] }),
-    userController.login);
+    userController.githubResponse);
 
 router.get(
     "/private-cookies-admin",
     passport.authenticate("jwt-cookies"),
     checkRole("admin"),
     (req, res) => res.send(req.user)
-  );
+);
+
+router.post("/editarUsuario",
+    userController.update
+);
+
 export default router;

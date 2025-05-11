@@ -1,6 +1,7 @@
-import { productDao } from "../daos/mongodb/product-dao.js";
 import CustomError from "../utils/custom.error.js";
+import persistence from "../daos/persistence.js";
 
+const { productDao } = persistence;
 
 class ProductService {
     constructor(dao) {

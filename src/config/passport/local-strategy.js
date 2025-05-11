@@ -21,7 +21,7 @@ const login = async (req, email, password, done )=> {
     try {
         const user = await userService.login(email, password);
         if(!user)
-            return done(null, false, res.redirect("/errorLogin") /* { message: "Credeciales Incorrectas"} */);
+            return done(null, false, res.redirect("/errorLogin"));
         return done(null, user);
     } catch (error) {
         return done(error, false, { message: error.message });
