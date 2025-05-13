@@ -1,5 +1,5 @@
 body {
-    background-color: #052659;
+    background-color: white;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -182,4 +182,12 @@ body {
 
 section {
     margin-top: 2rem;
+}
+
+.product-image {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }

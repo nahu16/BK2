@@ -24,7 +24,7 @@ class ProductService {
         throw error;
     }
     };
-    create = async (body) => {
+     create = async (body) => {
     try {
         const response = await this.dao.create(body);
         if (!response) throw new CustomError('Error creating product', 404);

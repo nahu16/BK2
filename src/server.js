@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import { __dirname } from "./utils.js";
 import userRouter from "./routes/users.routers.js";
+import productRouter from "./routes/product.router.js";
 import mongoStore from "connect-mongo";
 import handlebars from "express-handlebars";
 import viewsRouter from "./routes/view.router.js";
@@ -12,9 +13,12 @@ import 'dotenv/config';
 import './config/passport/jwt.strategy.js';
 import "./config/passport/local-strategy.js";
 import "./config/passport/github.strategy.js";
+import { Server } from "socket.io";
+import { config as configWebsocket } from "./config/websocket.config.js";
 
 const app = express();
 const PORT = 8080
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,10 +47,14 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/products', productRouter);
 app.use('/users', userRouter);
-app.use("/", viewsRouter);
+app.use('/', viewsRouter);
 app.use(errorHandler);
 
-app.listen(PORT, ()=> {
+
+const httpServer = app.listen(PORT, ()=> {
 console.log(`Server running on port ${PORT}`)
 })
+
+configWebsocket(httpServer);

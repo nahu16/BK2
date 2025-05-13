@@ -26,7 +26,7 @@ class UserService {
         }
         };
 
-    login = async (email, password) => {
+    login = async (email, password, role) => {
         try {
             const userExist = await this.dao.getByEmail(email);
             if (!userExist) throw new CustomError ("Credenciales incorrectas", 400);

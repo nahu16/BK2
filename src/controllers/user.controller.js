@@ -22,7 +22,10 @@ class UserController{
             req.session.user = user;
             const token = this.service.generateToken(user);  
             res.cookie("token", token, { httpOnly: true });
-            res.redirect('/home')
+        if (user.role === "admin") {
+            return res.redirect("/products/create");
+            } else if (user.role === "user") {
+            return res.redirect("/home")};
         } catch (error) {
             return res.redirect("/errorLogin");
         }

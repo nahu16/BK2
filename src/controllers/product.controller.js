@@ -24,15 +24,30 @@ class ProductController{
         }
       };
     
-      create = async (req, res, next) => {
+/*       create = async (req, res, next) => {
         try {
-          const response = await this.service.create(req.body);
-          res.status(201).json(response);
+          const response = await productService.create(req.body);
+          console.log(response);
+          //res.status(201).json(response);
+          res.render("/products/create");
         } catch (error) {
-          next(error);
+          res.status(500).json("estamos aca?");
+          //next(error);
         }
-      };
-    
+      }; */
+    create = async (req, res, next) => {
+        try {
+          const productData = {
+            ...req.body,
+            image: req.file?.filename || "default.png", // si no se subió imagen, usa una por defecto
+          };
+        const response = await productService.create(productData);
+        console.log(response);
+        res.redirect("/products/create"); // o donde quieras redirigir luego de crear
+        } catch (error) {
+        res.status(500).json({ error: error.message });
+        }
+    };
       update = async (req, res, next) => {
         try {
           const { id } = req.params;

@@ -1,0 +1,45 @@
+<header>
+<h1>Productos en Tiempo Real</h1>
+</header>
+
+<main>
+    <section>
+        <h3>Productos</h3>
+        <div id="products-list">
+        </div>
+    </section>
+
+    <section>
+        <h3>Ingresar Producto Nuevo</h3>
+{{!--         <form id="product-form">
+            <input type="text" name="title" placeholder="Ingresa el nombre" required>
+            <input type="text" name="description" placeholder="Ingresa la descripción" required>
+            <input type="number" name="code" placeholder="Ingresa el codigo" required>
+            <div>¿Está activo? <input type="checkbox" name="status" value="true" ></div>
+            <input type="number" name="price" placeholder="Ingresa el precio" required>
+            <input type="submit" value="Guardar">
+        </form> --}}
+        <form action="/products/create" method="POST" enctype="multipart/form-data">
+<input type="text" name="title" placeholder="Ingresa el nombre" required>
+            <input type="text" name="description" placeholder="Ingresa la descripción" required>
+            <input type="number" name="code" placeholder="Ingresa el codigo" required>
+            <input type="number" name="price" placeholder="Ingresa el precio" required>
+  <label>Imagen: <input type="file" name="image" accept="image/*" /></label>
+  <button type="submit">Crear producto</button>
+</form>
+    </section>
+
+    <section>
+        <h3>Eliminar Producto</h3>
+        <div>
+            <input type="string" id="input-product-id" placeholder="Id del producto">
+            <button id="btn-deleted-product">Eliminar</button>
+        </div>
+        <button id="btn-back-menu" >Volver al inicio</button>
+    </section>
+
+    <p id="error-message" style="color: darkred;"></p>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.socket.js"></script>
