@@ -14,7 +14,6 @@ router.post(
     if (req.isAuthenticated()) return next();
     return res.redirect("/errorLogin");
   },
-    //passport.authenticate("login", { failureRedirect: "/errorLogin" }),
     checkRole("admin"),
     upload.single("image"),
     productController.create
@@ -24,7 +23,17 @@ router.get("/create", (req, res)=>{
     res.render("products");
 });
 router.get("/:id", productController.getById);
-router.put("/:id", productController.update);
+
+router.put("/:id", 
+      (req, res, next) => {
+    if (req.isAuthenticated()) return next();
+    return res.redirect("/errorLogin");
+  },
+    checkRole("admin"),
+    upload.single("image"),
+    productController.update
+);
+
 router.delete("/:id", productController.delete);
 
 export default router;

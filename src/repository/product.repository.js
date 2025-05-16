@@ -3,7 +3,7 @@ import persistence from "../daos/persistence.js";
 
 const { productDao } = persistence;
 
-class ProductService {
+class ProductRepository {
     constructor(dao) {
     this.dao = dao;
     }
@@ -53,4 +53,4 @@ class ProductService {
     };
 };
 
-export const productService = new ProductService(productDao);
+export const productRepository = new ProductRepository(productDao);

@@ -34,4 +34,8 @@ router.post("/editarUsuario",
     userController.update
 );
 
+router.post("/endSession",
+    userController.logout
+);
+
 export default router;

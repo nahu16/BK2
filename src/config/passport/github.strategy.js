@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as StrategyGithub } from "passport-github2";
-import { userService } from "../../services/user.service.js";
+import { userRepository } from "../../repository/user.repository.js";
 import "dotenv/config.js";
 
 const strategyConfig={
@@ -13,10 +13,10 @@ const registerOrLogin = async (accessToken, refreshToken, profile, done)=>{
     
     try {
         const email = profile._json.email;
-        const user = await userService.getByEmail(email);
+        const user = await userRepository.getByEmail(email);
         if(user) return done(null, user);
 
-        const newUser = await userService.create({
+        const newUser = await userRepository.create({
             first_name: profile._json.name.split(" ")[0],
             last_name: profile._json.name.split(" ")[1],
             email,
@@ -43,7 +43,7 @@ passport.serializeUser((user, done)=>{
 
 passport.deserializeUser(async(id, done)=>{
     try {
-        const user = await userService.getById(id);
+        const user = await userRepository.getById(id);
         return done (null, user);
     } catch (error) {
         done(error);

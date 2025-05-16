@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const { userDao } = persistence;
 
-class UserService { 
+class UserRepository { 
     constructor(dao){
         this.dao = dao;
     }
@@ -92,11 +92,14 @@ class UserService {
           email: user.email,
           age: user.age,
           role: user.role,
+          cart: user.cart,
         };
         return jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "20m",
-        });
+        });  
     };
+    
+    
 }
 
-export const userService = new UserService(userDao);
+export const userRepository = new UserRepository(userDao);

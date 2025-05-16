@@ -1,40 +1,45 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { userService } from "../../services/user.service.js";
+import { userRepository } from "../../repository/user.repository.js";
+import { cartRepository } from "../../repository/cart.repository.js";
 
-const strategyConfig={
+const strategyConfig = {
     usernameField: "email",
     passwordField: "password",
     passReqToCallback: true,
 }
 
-const register = async (req, email, password, done)=>{
+const register = async (req, email, password, done) => {
     try {
-        const newUser = await userService.create(req.body);
-        return done(null, newUser);
-    } catch (error) {
-        return done(error, false, { message: error.message});
-    }
-};
+        const newCart = await cartRepository.create({ products: [] });
+        const userData = {
+            ...req.body,
+            cart: newCart._id,
+        };
 
-/* const login = async (req, email, password, done )=> {
-    try {
-        const user = await userService.login(email, password);
-        if(!user)
-            return done(null, false, res.redirect("/errorLogin"));
-        return done(null, user);
+        const newUser = await userRepository.create(userData);
+
+        return done(null, newUser);
     } catch (error) {
         return done(error, false, { message: error.message });
     }
-}; */
+};
 
 const login = async (req, email, password, done) => {
     try {
-        const user = await userService.login(email, password);
+        const user = await userRepository.login(email, password);        
         if (!user) {
             return done(null, false, { message: "Credenciales incorrectas" });
         }
-        return done(null, user);
+const role = user.role?.toLowerCase().trim();
+const isAdmin = role === "admin";
+const hasCart = !!user.cart;
+
+if (!hasCart && !isAdmin) {
+    const newCart = await cartRepository.create({ products: [] });
+    user.cart = newCart._id;
+    await user.save();
+}        return done(null, user);
     } catch (error) {
         return done(error, false, { message: error.message });
     }
@@ -46,18 +51,18 @@ const loginStrategy = new Strategy(strategyConfig, login);
 passport.use("register", registerStrategy);
 passport.use("login", loginStrategy);
 
-passport.serializeUser((user, done)=>{
+passport.serializeUser((user, done) => {
     try {
-        done (null, user._id);
+        done(null, user._id);
     } catch (error) {
         done(error);
     }
 });
 
-passport.deserializeUser(async(id, done)=>{
+passport.deserializeUser(async (id, done) => {
     try {
-        const user = await userService.getById(id);
-        return done (null, user);
+        const user = await userRepository.getById(id).populate("cart");
+        return done(null, user);
     } catch (error) {
         done(error);
     }

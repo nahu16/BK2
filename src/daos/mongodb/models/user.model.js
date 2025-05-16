@@ -23,8 +23,8 @@ const userSchema = new Schema({
         required: true,
     },
     cart:{
-        type: String,
-        default: "Aun no tienes un carrito",
+        type: Schema.Types.ObjectId,
+        ref: "carts",
     },
     role: {
         type: String,

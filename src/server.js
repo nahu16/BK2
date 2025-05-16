@@ -15,6 +15,8 @@ import "./config/passport/local-strategy.js";
 import "./config/passport/github.strategy.js";
 import { Server } from "socket.io";
 import { config as configWebsocket } from "./config/websocket.config.js";
+import cartRouter from "./routes/cart.router.js";
+
 
 const app = express();
 const PORT = 8080
@@ -24,6 +26,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
+
+
+
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
@@ -47,6 +52,7 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/cart', cartRouter);
 app.use('/products', productRouter);
 app.use('/users', userRouter);
 app.use('/', viewsRouter);

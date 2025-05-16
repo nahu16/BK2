@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { ExtractJwt, Strategy as StrategyJWT} from 'passport-jwt';
-import { userService } from '../../services/user.service.js';
+import { userRepository } from '../../repository/user.repository.js';
 import "dotenv/config.js";
 
 const cookieExtractor = (req) => {
@@ -29,7 +29,7 @@ passport.serializeUser((user, done) => {
   
 passport.deserializeUser(async (id, done) => {
     try {
-      const user = await userService.getById(id);
+      const user = await userRepository.getById(id);    
       return done(null, user);
     } catch (error) {
       done(error);

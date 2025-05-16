@@ -1,8 +1,9 @@
-import { userService } from "../services/user.service.js";
+import { userRepository } from "../repository/user.repository.js";
+import { cartRepository } from "../repository/cart.repository.js";
 
 class UserController{
-    constructor(service){
-        this.service = service;
+    constructor(repository){
+        this.repository = repository;
     }
 
     create = async (req, res, next) => {
@@ -18,10 +19,12 @@ class UserController{
     login = async (req, res, next) =>{
         try {
             const id = req.session.passport.user;
-            const user = await userService.getById(id);
-            req.session.user = user;
-            const token = this.service.generateToken(user);  
+            const user = await userRepository.getById(id);
+            req.session.user = user;             
+            
+            const token = this.repository.generateToken(user);  
             res.cookie("token", token, { httpOnly: true });
+            
         if (user.role === "admin") {
             return res.redirect("/products/create");
             } else if (user.role === "user") {
@@ -44,7 +47,7 @@ class UserController{
 
     getAll = async (req, res, next) => {
         try {
-            const response = await this.service.getAll();
+            const response = await this.repository.getAll();
             res.status(200).json(response);
         } catch (error) {
             next(error);
@@ -54,7 +57,7 @@ class UserController{
     getById = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const response = await this.service.getById(id);
+            const response = await this.repository.getById(id);
             res.status(200).json(response);
         } catch (error) {
             next(error);
@@ -64,7 +67,7 @@ class UserController{
     update = async (req, res, next) => {       
         try {
             const userId = req.session.user._id;
-            const response = await this.service.update(userId, req.body);
+            const response = await this.repository.update(userId, req.body);
             req.session.user=response; 
             res.redirect('/perfil')
         } catch (error) {
@@ -75,12 +78,22 @@ class UserController{
     delete = async (req, res, next) => {
         try {
             const { id } = req.params;
-            const response = await this.service.delete(id);
+            const response = await this.repository.delete(id);
             res.status(200).json(response);
         } catch (error) {
         next(error);
         }
     };    
+
+    logout = async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: "Error al cerrar sesión" });
+        }
+        res.clearCookie("token");
+        res.redirect('/');
+    });
+}
 }
 
-export const userController = new UserController(userService);
+export const userController = new UserController(userRepository);

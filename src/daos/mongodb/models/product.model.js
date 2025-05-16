@@ -30,6 +30,11 @@ const ProductSchema = new Schema({
     image: { 
         type: String, 
     },
+    stock:{
+        type: Number,
+        require: [true, "El stock es obligatorio"],
+        min: [0, "El stock no puede ser negativo"],
+        }
 });
 
 export const ProductModel = model("products", ProductSchema);

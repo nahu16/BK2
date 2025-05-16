@@ -5,6 +5,7 @@ const productForm = document.getElementById("product-form");
 const errorMessage = document.getElementById("error-message");
 const inputProductId = document.getElementById("input-product-id");
 const btnDeletedProduct = document.getElementById("btn-deleted-product");
+const btnUpdateProduct = document.getElementById("update-product");
 const btnBackMenu = document.getElementById("btn-back-menu");
 
 socket.on("products-list", (data) => {
@@ -30,8 +31,8 @@ socket.on("products-list", (data) => {
         const productPrice = document.createElement("p");
         productPrice.textContent = `Precio: $ ${producto.price}`;
 
-        const productStatus = document.createElement("p");
-        productStatus.textContent = `Estado: ${producto.status}`;       
+        const productStock = document.createElement("p");
+        productStock.textContent = `Stock: ${producto.stock}`;       
 
 
         card.appendChild(productId);
@@ -39,33 +40,30 @@ socket.on("products-list", (data) => {
         card.appendChild(productDescription);
         card.appendChild(productCode);
         card.appendChild(productPrice);
-
-        card.appendChild(productStatus);
+        card.appendChild(productStock);
 
         productsContainer.appendChild(card);
     });
 });
 
-/* productForm.addEventListener("submit", (event)=>{
-    event.preventDefault();
-    const form = event.target;
-    const formdata = new FormData(form);
+btnUpdateProduct.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-    errorMessage.innerHTML = "";
-    form.reset();
+    const id = document.getElementById("input-product-id").value;
+    const form = document.getElementById("form-update-product");
+    const formData = new FormData(form);
 
-    socket.emit("insert-product", {
-        title: formdata.get("title"),
-        description: formdata.get("description"),
-        code: formdata.get("code"),
-        price: parseFloat(formdata.get("price"))
-    });
-}); */
-
-socket.on("product-created", () => {
-    // Vuelvo a pedir el listado actualizado
-    socket.emit("refresh-products");
+    const productData = Object.fromEntries(formData.entries());
+    Object.keys(productData).forEach(key => {
+        if(productData[key]===""){
+            delete productData[key]
+        }
+    })
+    socket.emit("update-product", {
+        id,
+        productData});
 });
+
 
 btnDeletedProduct.addEventListener("click", ()=>{
     const id = inputProductId.value;

@@ -191,3 +191,37 @@ section {
   margin-bottom: 10px;
   border-radius: 8px;
 }
+.products-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px;
+  justify-content: flex-start;
+}
+
+.products-wrapper .card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  width: 200px;
+  height: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.products-wrapper .card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.products-wrapper .card h4 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.products-wrapper .card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}

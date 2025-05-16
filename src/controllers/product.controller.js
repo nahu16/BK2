@@ -1,13 +1,13 @@
-import { productService } from "../services/product.service.js";
+import { productRepository } from "../repository/product.repository.js";
 
 class ProductController{
-    constructor(service){
-        this.service = service;
+    constructor(repository){
+        this.repository = repository;
     }
 
     getAll = async (req, res, next) => {
         try {
-          const response = await this.service.getAll();
+          const response = await this.repository.getAll();
           res.status(200).json(response);
         } catch (error) {
           next(error);
@@ -17,33 +17,22 @@ class ProductController{
       getById = async (req, res, next) => {
         try {
           const { id } = req.params;
-          const response = await this.service.getById(id);
+          const response = await this.repository.getById(id);
           res.status(200).json(response);
         } catch (error) {
           next(error);
         }
       };
-    
-/*       create = async (req, res, next) => {
-        try {
-          const response = await productService.create(req.body);
-          console.log(response);
-          //res.status(201).json(response);
-          res.render("/products/create");
-        } catch (error) {
-          res.status(500).json("estamos aca?");
-          //next(error);
-        }
-      }; */
+
     create = async (req, res, next) => {
         try {
           const productData = {
             ...req.body,
-            image: req.file?.filename || "default.png", // si no se subió imagen, usa una por defecto
+            image: req.file?.filename || "default.png",
           };
-        const response = await productService.create(productData);
+        const response = await productRepository.create(productData);
         console.log(response);
-        res.redirect("/products/create"); // o donde quieras redirigir luego de crear
+        res.redirect("/products/create");
         } catch (error) {
         res.status(500).json({ error: error.message });
         }
@@ -51,8 +40,9 @@ class ProductController{
       update = async (req, res, next) => {
         try {
           const { id } = req.params;
-          const response = await this.service.update(id, req.body);
-          res.status(200).json(response);
+          const updatedData = req.body;
+          const result = await this.repository.update(id, updatedData);
+          res.status(200).json(result);
         } catch (error) {
           next(error);
         }
@@ -61,7 +51,7 @@ class ProductController{
       delete = async (req, res, next) => {
         try {
           const { id } = req.params;
-          const response = await this.service.delete(id);
+          const response = await this.repository.delete(id);
           res.status(200).json(response);
         } catch (error) {
       next(error);
@@ -69,4 +59,4 @@ class ProductController{
     };
 }
     
-export const productController = new ProductController(productService);
+export const productController = new ProductController(productRepository);

@@ -6,9 +6,19 @@
     <section>
         <h3>Listado de productos: </h3>
         <div>
-            <ul id="products-cart"></ul>
+            <ul id="products-cart" class="products-wrapper"></ul>
+        </div>
+        <div>
+            <h3>Total: $<span id="total-cart"></span></h3>
+            <button id="generate-ticket">Finalizar compra</button>
         </div>
         <button id="btn-back-menu" >Volver al inicio</button>
         <button id="btnDeletedCart">Eliminar Carrito</button>
+        
+
     </section>
 </main>
+
+<script> let CART_ID = "{{{cartId}}}"</script>
+<script src="/socket.io/socket.io.js"></script> 
+<script src="/js/cart.js"></script>
