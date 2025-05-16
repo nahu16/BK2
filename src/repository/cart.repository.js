@@ -64,10 +64,7 @@ class CartRepository {
 
     updateProdQuantityToCart = async (cartId, prodId, quantity) => {
     try {
-        // Validamos que el cart existe, si no, lanza error
         await this.getById(cartId);
-
-        // Lógica de cantidad se maneja en el DAO
         return await this.dao.updateProdQuantityToCart(cartId, prodId, quantity);
     } catch (error) {
         throw new Error(error);
@@ -76,10 +73,7 @@ class CartRepository {
 
     updateProdpriceToCart = async (cartId, prodId, price) => {
     try {
-        // Validamos que el cart existe, si no, lanza error
         await this.getById(cartId);
-
-        // Lógica de cantidad se maneja en el DAO
         return await this.dao.updateProdpriceToCart(cartId, prodId, price);
     } catch (error) {
         throw new Error(error);
