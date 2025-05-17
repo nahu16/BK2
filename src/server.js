@@ -16,6 +16,7 @@ import "./config/passport/github.strategy.js";
 import { Server } from "socket.io";
 import { config as configWebsocket } from "./config/websocket.config.js";
 import cartRouter from "./routes/cart.router.js";
+import ticketRouter from "./routes/ticket.router.js";
 
 
 const app = express();
@@ -52,6 +53,7 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/ticket', ticketRouter)
 app.use('/cart', cartRouter);
 app.use('/products', productRouter);
 app.use('/users', userRouter);

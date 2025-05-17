@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { productRepository } from "../repository/product.repository.js";
 import { cartRepository } from "../repository/cart.repository.js";
+import { ticketRepository } from "../repository/ticket.repository.js";
 
 export const config = (httpServer) => {
     const socketServer = new Server(httpServer);
@@ -80,5 +81,14 @@ export const config = (httpServer) => {
         socket.emit("error-message", { message: error.message });
     }
     });
+        socket.on("generate-ticket", async ({ user, id }) => {
+
+            try {
+                const ticket = await ticketRepository.generateTicket( user, id );                
+                socket.emit("ticket-generated", { ticket });
+            } catch (error) {
+                socket.emit("error-message", { message: error.message });
+            }
+        });
 });
 };

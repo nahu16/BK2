@@ -115,9 +115,6 @@ function renderCarts(products) {
         const productPrice = document.createElement("p");
         productPrice.textContent = `Precio: $${precioFinal}`;
 
-        const generateTicket = document.createElement("button");
-        generateTicket.innerHTML = "Generar ticket";
-
         const btnDeleteProduct = document.createElement("button");
         btnDeleteProduct.innerHTML = "Eliminar producto";
         btnDeleteProduct.onclick = async () => {
@@ -152,6 +149,16 @@ function renderCarts(products) {
     }, 0);
     totalCard.textContent = totalPrice;
 
+    generateTicket.onclick = async () => {
+            const id = await getCartId();
+            const user = userId;
+            socket.emit("generate-ticket", { user, id });
+    };
+
+    socket.on("ticket-generated", async ({ ticket }) => {
+    console.log(ticket);
+    });
+
     btnDeletedCart.onclick = async () => {
         const id = await getCartId();
         const user = userId;
@@ -165,6 +172,9 @@ function renderCarts(products) {
 btnBackMenu.addEventListener("click", () => {
     window.location.href = "/home";
 });
+
+
+    
 
 carritoCompras();
 
